@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>दशैं अफर - FireClashArena</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans', 'Poppins', sans-serif;
+        }
+
+        body {
+            background: url('bg2.png') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+            background: url('bg1.png') no-repeat center center;
+            background-size: cover;
+            padding: 15px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            max-width: 120px;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .subtitle {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .nepali-text {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, #ff9a00, #ff0a54, #ff006e, #8338ec, #3a86ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            animation: rainbow 5s linear infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes rainbow {
+            to { background-position: 200% center; }
+        }
+
+        .chances-container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .chances {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 15px;
+            max-width: 350px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .gift-box {
+            position: relative;
+            height: 100px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-box:active {
+            transform: scale(0.95);
+            transition: transform 0.1s;
+        }
+
+        .gift-box.opened {
+            pointer-events: none;
+        }
+
+        .box-base {
+            width: 100%;
+            height: 70%;
+            background: url('box.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .box-lid {
+            width: 100%;
+            height: 35%;
+            background: url('cap.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 5px 5px 0 0;
+            position: absolute;
+            top: 0;
+            transition: transform 0.8s ease-in-out;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+        }
+
+        .gift-box.opened .box-lid {
+            transform: translateY(-50px);
+        }
+
+        .money-pouch {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            background: url('money.png') no-repeat center center;
+            background-size: cover;
+            top: 20%;
+            left: 20%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-in-out;
+            z-index: 1;
+        }
+
+        .gift-box.opened.has-money .money-pouch {
+            opacity: 1;
+            transform: translateY(-10px);
+            z-index: 4;
+        }
+
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+
+        .firecracker {
+            position: absolute;
+            bottom: -20px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: rise 1.5s ease-out forwards;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(var(--height));
+                opacity: 0;
+            }
+        }
+
+        .explosion {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+        .message-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            display: none;
+            animation: popIn 0.5s forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .message-popup h2 {
+            margin-bottom: 15px;
+            color: #ff6a00;
+        }
+
+        .message-popup p {
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #fff;
+        }
+
+        .message-popup button {
+            background: linear-gradient(to right, #ff6a00, #ee0979);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .message-popup button:hover {
+            transform: scale(1.05);
+        }
+
+        .steps-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 250;
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            display: none;
+            animation: popIn 0.5s forwards;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .steps-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #ff6a00, #ee0979);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .step-number {
+            background: #ff6a00;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 16px;
+            line-height: 1.4;
+            color: #fff;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .share-button {
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .share-button.messenger {
+            background: #1877f2;
+        }
+
+        .share-button.messenger:hover {
+            background: #166fe5;
+        }
+
+        .share-button.instagram {
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+        }
+
+        .share-button.instagram:hover {
+            filter: brightness(1.1);
+        }
+
+        .share-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 150;
+            display: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 300;
+            display: none;
+            animation: slideUp 0.5s forwards;
+        }
+
+        @keyframes slideUp {
+            from { transform: translate(-50%, 100px); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+
+        .audio-container {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .game-container {
+                max-width: 450px;
+            }
+            .gift-box { height: 120px; }
+            .title { font-size: 32px; }
+            .subtitle { font-size: 26px; }
+            .nepali-text { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <img src="logo.png" alt="FireClashArena Logo" class="logo">
+            <h1 class="title">दशैं अफर - FireClashArena</h1>
+            <h2 class="subtitle">Dashain & Tihar Celebration</h2>
+            <div class="nepali-text">विजया दशमीको सुभकामना</div>
+        </div>
+    </div>
+
+    <div class="chances-container">
+        <div class="chances" id="chances">Chances Left: 3 | अवसर बाँकी: ३</div>
+    </div>
+
+    <div class="game-container" id="gameContainer"></div>
+
+    <div class="fireworks" id="fireworks"></div>
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="message-popup" id="messagePopup">
+        <h2 id="popupTitle">Message</h2>
+        <p id="popupMessage">Message content</p>
+        <button id="popupButton">OK</button>
+    </div>
+
+    <div class="steps-popup" id="stepsPopup">
+        <h3 class="steps-title">How to Claim Your Prize</h3>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Complete</div>
+        <div class="step">
+            <div class="step-number">1</div><div class="step-text">Share website to friends in messenger</div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div><div class="step-text">Share website to groups in messenger</div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div><div class="step-text">Share website to friends on Instagram</div>
+        </div>
+        <div class="step">
+            <div class="step-number">4</div><div class="step-text">Share website to groups on Instagram</div>
+        </div>
+        <div class="share-buttons">
+            <button class="share-button messenger" id="shareMessengerFriends"><i class="fab fa-facebook-messenger"></i> Messenger Friends</button>
+            <button class="share-button messenger" id="shareMessengerGroups"><i class="fab fa-facebook-messenger"></i> Messenger Groups</button>
+            <button class="share-button instagram" id="shareInstaFriends"><i class="fab fa-instagram"></i> Instagram Friends</button>
+            <button class="share-button instagram" id="shareInstaGroups"><i class="fab fa-instagram"></i> Instagram Groups</button>
+        </div>
+        <button id="closeStepsButton" style="margin-top: 15px; background: linear-gradient(to right, #ff6a00, #ee0979); color: white; border: none; padding: 10px 20px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer;">Close</button>
+    </div>
+
+    <div class="toast" id="toast">Link copied to clipboard!</div>
+
+    <div class="audio-container">
+        <audio id="openSound" src="https://assets.mixkit.co/sfx/preview/mixkit-opening-a-present-393.mp3"></audio>
+        <audio id="winSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"></audio>
+        <audio id="firecrackerSound" src="https://assets.mixkit.co/sfx/preview/mixkit-explosion-firework-001-689.mp3"></audio>
+        <audio id="fireworkSound" src="https://assets.mixkit.co/sfx/preview/mixkit-explosion-firework-001-689.mp3"></audio>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gameContainer = document.getElementById('gameContainer');
+            const chancesElement = document.getElementById('chances');
+            const fireworksElement = document.getElementById('fireworks');
+            const messagePopup = document.getElementById('messagePopup');
+            const stepsPopup = document.getElementById('stepsPopup');
+            const overlay = document.getElementById('overlay');
+            const popupTitle = document.getElementById('popupTitle');
+            const popupMessage = document.getElementById('popupMessage');
+            const popupButton = document.getElementById('popupButton');
+            const closeStepsButton = document.getElementById('closeStepsButton');
+            const toast = document.getElementById('toast');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            const openSound = document.getElementById('openSound');
+            const winSound = document.getElementById('winSound');
+            const firecrackerSound = document.getElementById('firecrackerSound');
+            const fireworkSound = document.getElementById('fireworkSound');
+            
+            let gameState = {
+                chancesLeft: 3,
+                gameWon: false,
+                currentAttempt: 0,
+                winAttempt: 0,
+                openedBoxes: [],
+                progress: 0,
+                moneyBoxIndex: -1,
+            };
+            
+            const savedGameState = localStorage.getItem('fireCashGameState');
+            if (savedGameState) {
+                gameState = JSON.parse(savedGameState);
+            } else {
+                gameState.winAttempt = Math.floor(Math.random() * 3) + 1;
+            }
+            
+            function initGame() {
+                gameContainer.innerHTML = '';
+                for (let i = 0; i < 9; i++) {
+                    const giftBox = document.createElement('div');
+                    giftBox.className = 'gift-box';
+                    giftBox.dataset.index = i;
+                    if (gameState.openedBoxes.includes(i)) {
+                        giftBox.classList.add('opened');
+                        if (i === gameState.moneyBoxIndex && gameState.gameWon) {
+                            giftBox.classList.add('has-money');
+                        }
+                    }
+                    giftBox.innerHTML = `<div class="box-base"></div><div class="box-lid"></div><div class="money-pouch"></div>`;
+                    giftBox.addEventListener('click', () => openBox(i));
+                    gameContainer.appendChild(giftBox);
+                }
+                updateChancesDisplay();
+                if (gameState.gameWon) {
+                    setTimeout(showStepsPopup, 500);
+                }
+            }
+            
+            function saveGameState() {
+                localStorage.setItem('fireCashGameState', JSON.stringify(gameState));
+            }
+            
+            function openBox(index) {
+                if (gameState.chancesLeft <= 0 || gameState.gameWon) return;
+                const giftBox = document.querySelector(`.gift-box[data-index="${index}"]`);
+                if (giftBox.classList.contains('opened')) return;
+                
+                openSound.currentTime = 0;
+                openSound.play();
+                
+                giftBox.classList.add('opened');
+                gameState.openedBoxes.push(index);
+                gameState.currentAttempt++;
+                
+                const isWin = (gameState.currentAttempt === gameState.winAttempt) || (gameState.chancesLeft === 1);
+
+                if (isWin) {
+                    gameState.gameWon = true;
+                    gameState.moneyBoxIndex = index;
+                    giftBox.classList.add('has-money');
+                    setTimeout(() => { winSound.currentTime = 0; winSound.play(); }, 500);
+                    setTimeout(() => { showFireworks(); fireworkSound.currentTime = 0; fireworkSound.play(); }, 800);
+                    setTimeout(() => { showWinMessage(); showStepsPopup(); }, 1500);
+                } else {
+                    gameState.chancesLeft--;
+                    updateChancesDisplay();
+                    setTimeout(showTryAgainMessage, 800);
+                }
+                saveGameState();
+            }
+            
+            function updateChancesDisplay() {
+                const nepaliNumbers = ['०', '१', '२', '३'];
+                chancesElement.textContent = `Chances Left: ${gameState.chancesLeft} | अवसर बाँकी: ${nepaliNumbers[gameState.chancesLeft]}`;
+            }
+            
+            function showFireworks() {
+                fireworksElement.style.display = 'block';
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(createFirecracker, i * 300);
+                }
+                setTimeout(() => {
+                    fireworksElement.style.display = 'none';
+                    fireworksElement.innerHTML = '';
+                }, 3000);
+            }
+            
+            function createFirecracker() {
+                const x = Math.random() * window.innerWidth;
+                const height = window.innerHeight * 0.3 + Math.random() * window.innerHeight * 0.4;
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
+                const firecracker = document.createElement('div');
+                firecracker.className = 'firecracker';
+                firecracker.style.left = `${x}px`;
+                firecracker.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                firecracker.style.setProperty('--height', `-${height}px`);
+                fireworksElement.appendChild(firecracker);
+                setTimeout(() => { createExplosion(x, window.innerHeight - height); firecrackerSound.currentTime = 0; firecrackerSound.play(); }, 1000);
+                setTimeout(() => firecracker.remove(), 1500);
+            }
+            
+            function createExplosion(x, y) {
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
+                for (let i = 0; i < 30; i++) {
+                    const explosion = document.createElement('div');
+                    explosion.className = 'explosion';
+                    explosion.style.left = `${x}px`;
+                    explosion.style.top = `${y}px`;
+                    explosion.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = 50 + Math.random() * 100;
+                    explosion.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
+                    explosion.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
+                    fireworksElement.appendChild(explosion);
+                    setTimeout(() => explosion.remove(), 1000);
+                }
+            }
+            
+            function showTryAgainMessage() {
+                popupTitle.textContent = 'Try Again!';
+                popupMessage.textContent = `Chances Left: ${gameState.chancesLeft} | अवसर बाँकी: ${nepaliNumbers[gameState.chancesLeft]}`;
+                overlay.style.display = 'block';
+                messagePopup.style.display = 'block';
+            }
+            
+            function showWinMessage() {
+                popupTitle.textContent = 'Congratulations!';
+                popupMessage.innerHTML = `<div class="nepali-text" style="font-size: 22px; margin: 10px 0;">बधाई छ, तपाईंले रु ५००० पाउनुभयो!</div><p>You've won Rs 5000! Follow the steps below to claim your prize.</p>`;
+                overlay.style.display = 'block';
+                messagePopup.style.display = 'block';
+            }
+            
+            function showStepsPopup() {
+                progressBar.style.width = `${gameState.progress}%`;
+                progressText.textContent = `${gameState.progress}% Complete`;
+                if (gameState.progress >= 100) {
+                    document.querySelectorAll('.share-button').forEach(button => button.disabled = true);
+                }
+                overlay.style.display = 'block';
+                stepsPopup.style.display = 'block';
+            }
+
+            function showFinalMessage() {
+                popupTitle.textContent = 'Verification Complete!';
+                popupMessage.innerHTML = `<p>Thank you for sharing! Your prize is being processed. You will be contacted shortly.</p>`;
+                overlay.style.display = 'block';
+                messagePopup.style.display = 'block';
+                document.querySelectorAll('.share-button').forEach(button => button.disabled = true);
+            }
+
+            function incrementProgress() {
+                if (gameState.progress >= 100) return;
+                const increment = Math.floor(Math.random() * 3) + 1;
+                gameState.progress = Math.min(gameState.progress + increment, 100);
+                progressBar.style.width = `${gameState.progress}%`;
+                progressText.textContent = `${gameState.progress}% Complete`;
+                saveGameState();
+                if (gameState.progress >= 100) {
+                    setTimeout(showFinalMessage, 1000);
+                }
+            }
+
+            // --- REVISED SHARE FUNCTIONALITY WITH REDIRECTION ---
+            async function shareLink(platform) {
+                 if (gameState.progress >= 100) {
+                    toast.textContent = 'You have already completed the steps!';
+                    toast.style.display = 'block';
+                    setTimeout(() => { toast.style.display = 'none'; }, 3000);
+                    return;
+                }
+
+                const shareData = {
+                    title: 'दशैं अफर - FireClashArena',
+                    text: "I'm playing this amazing Dashain & Tihar game! Check it out and win Rs 5000!",
+                    url: window.location.href
+                };
+
+                const showToast = (message) => {
+                    toast.textContent = message;
+                    toast.style.display = 'block';
+                    setTimeout(() => { toast.style.display = 'none'; }, 3500);
+                };
+
+                // Try modern Web Share API first (best for mobile)
+                if (navigator.share) {
+                    try {
+                        await navigator.share(shareData);
+                        showToast('Shared successfully! Progress updated.');
+                        incrementProgress();
+                    } catch (err) {
+                        showToast('Sharing was cancelled.');
+                    }
+                    return; // Stop here if Web Share API was used
+                }
+
+                // Fallback for desktop or unsupported browsers
+                try {
+                    // 1. Copy link to clipboard
+                    await navigator.clipboard.writeText(shareData.text + ' ' + shareData.url);
+                    showToast(`Link copied! Now opening ${platform}...`);
+                    incrementProgress();
+
+                    // 2. Attempt to open the app
+                    if (platform === 'Messenger') {
+                        window.open('fb-messenger://', '_blank');
+                        setTimeout(() => { window.open('https://www.messenger.com/', '_blank'); }, 1000);
+                    } else if (platform === 'Instagram') {
+                        window.open('instagram://', '_blank');
+                        setTimeout(() => { window.open('https://www.instagram.com/', '_blank'); }, 1000);
+                    }
+                } catch (err) {
+                    showToast('Could not copy link. Please try again.');
+                }
+            }
+
+            // --- EVENT LISTENERS ---
+            popupButton.addEventListener('click', () => {
+                overlay.style.display = 'none';
+                messagePopup.style.display = 'none';
+            });
+            
+            closeStepsButton.addEventListener('click', () => {
+                overlay.style.display = 'none';
+                stepsPopup.style.display = 'none';
+            });
+            
+            document.getElementById('shareMessengerFriends').addEventListener('click', () => shareLink('Messenger'));
+            document.getElementById('shareMessengerGroups').addEventListener('click', () => shareLink('Messenger'));
+            document.getElementById('shareInstaFriends').addEventListener('click', () => shareLink('Instagram'));
+            document.getElementById('shareInstaGroups').addEventListener('click', () => shareLink('Instagram'));
+            
+            initGame();
+        });
+    </script>
+</body>
+</html>
