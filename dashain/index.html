@@ -6,21 +6,20 @@
     <title>दशैं अफर - FireClashArena</title>
     
     <!-- =================================================================== -->
-    <!-- == ADD THESE META TAGS FOR SOCIAL SHARING == -->
+    <!-- == FINAL META TAGS FOR SOCIAL SHARING (WITH YOUR LIVE URL) == -->
     <!-- =================================================================== -->
-    <!-- IMPORTANT: Replace the placeholder URLs below with your actual website URL -->
 
-    <meta property="og:title" content="दशैं अफर - FireClashArena | Win Rs 5000!" />
-    <meta property="og:description" content="Play the Dashain & Tihar Celebration game and get a chance to win Rs 5000! Click the link to try your luck." />
-    <meta property="og:image" content="https://www.your-live-website.com/money.png" /> 
-    <meta property="og:url" content="https://www.your-live-website.com/index.html" />
+    <meta property="og:title" content="दशैं अफर - Win Rs 5000!" />
+    <meta property="og:description" content="Play the FireClash Arena Dashain & Tihar game and get a chance to win Rs 5000! Click to try your luck." />
+    <!-- This path is now correct because money.png will be at the root of your site -->
+    <meta property="og:image" content="https://fireclash-arena-dashain-offer.vercel.app/money.png" /> 
+    <meta property="og:url" content="https://fireclash-arena-dashain-offer.vercel.app/" />
     <meta property="og:type" content="website" />
 
     <!-- =================================================================== -->
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* All your CSS remains the same... */
         * {
             margin: 0;
             padding: 0;
@@ -225,17 +224,9 @@
         }
 
         @keyframes rise {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            70% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(var(--height));
-                opacity: 0;
-            }
+            0% { transform: translateY(0); opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: translateY(var(--height)); opacity: 0; }
         }
 
         .explosion {
@@ -247,14 +238,8 @@
         }
 
         @keyframes explode {
-            0% {
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty));
-                opacity: 0;
-            }
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
         }
 
         .message-popup {
@@ -405,33 +390,16 @@
             transition: all 0.3s ease;
         }
 
-        .share-button.messenger {
-            background: #1877f2;
-        }
-
-        .share-button.messenger:hover {
-            background: #166fe5;
-        }
-
-        .share-button.instagram {
-            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-        }
-
-        .share-button.instagram:hover {
-            filter: brightness(1.1);
-        }
-
-        .share-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+        .share-button.messenger { background: #1877f2; }
+        .share-button.messenger:hover { background: #166fe5; }
+        .share-button.instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+        .share-button.instagram:hover { filter: brightness(1.1); }
+        .share-button:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7);
             z-index: 150;
             display: none;
@@ -457,14 +425,10 @@
             to { transform: translate(-50%, 0); opacity: 1; }
         }
 
-        .audio-container {
-            display: none;
-        }
+        .audio-container { display: none; }
 
         @media (min-width: 768px) {
-            .game-container {
-                max-width: 450px;
-            }
+            .game-container { max-width: 450px; }
             .gift-box { height: 120px; }
             .title { font-size: 32px; }
             .subtitle { font-size: 26px; }
@@ -473,7 +437,6 @@
     </style>
 </head>
 <body>
-    <!-- The rest of your HTML body remains the same -->
     <div class="header">
         <div class="header-content">
             <img src="logo.png" alt="FireClashArena Logo" class="logo">
@@ -504,18 +467,10 @@
             <div class="progress-bar" id="progressBar"></div>
         </div>
         <div class="progress-text" id="progressText">0% Complete</div>
-        <div class="step">
-            <div class="step-number">1</div><div class="step-text">Share website to friends in messenger</div>
-        </div>
-        <div class="step">
-            <div class="step-number">2</div><div class="step-text">Share website to groups in messenger</div>
-        </div>
-        <div class="step">
-            <div class="step-number">3</div><div class="step-text">Share website to friends on Instagram</div>
-        </div>
-        <div class="step">
-            <div class="step-number">4</div><div class="step-text">Share website to groups on Instagram</div>
-        </div>
+        <div class="step"><div class="step-number">1</div><div class="step-text">Share website to friends in messenger</div></div>
+        <div class="step"><div class="step-number">2</div><div class="step-text">Share website to groups in messenger</div></div>
+        <div class="step"><div class="step-number">3</div><div class="step-text">Share website to friends on Instagram</div></div>
+        <div class="step"><div class="step-number">4</div><div class="step-text">Share website to groups on Instagram</div></div>
         <div class="share-buttons">
             <button class="share-button messenger" id="shareMessengerFriends"><i class="fab fa-facebook-messenger"></i> Messenger Friends</button>
             <button class="share-button messenger" id="shareMessengerGroups"><i class="fab fa-facebook-messenger"></i> Messenger Groups</button>
@@ -535,7 +490,6 @@
     </div>
 
     <script>
-        // The JavaScript remains the same as the previous version
         document.addEventListener('DOMContentLoaded', () => {
             const gameContainer = document.getElementById('gameContainer');
             const chancesElement = document.getElementById('chances');
@@ -557,13 +511,8 @@
             const fireworkSound = document.getElementById('fireworkSound');
             
             let gameState = {
-                chancesLeft: 3,
-                gameWon: false,
-                currentAttempt: 0,
-                winAttempt: 0,
-                openedBoxes: [],
-                progress: 0,
-                moneyBoxIndex: -1,
+                chancesLeft: 3, gameWon: false, currentAttempt: 0, winAttempt: 0,
+                openedBoxes: [], progress: 0, moneyBoxIndex: -1,
             };
             
             const savedGameState = localStorage.getItem('fireCashGameState');
@@ -604,9 +553,7 @@
                 const giftBox = document.querySelector(`.gift-box[data-index="${index}"]`);
                 if (giftBox.classList.contains('opened')) return;
                 
-                openSound.currentTime = 0;
-                openSound.play();
-                
+                openSound.currentTime = 0; openSound.play();
                 giftBox.classList.add('opened');
                 gameState.openedBoxes.push(index);
                 gameState.currentAttempt++;
@@ -638,20 +585,16 @@
                 for (let i = 0; i < 8; i++) {
                     setTimeout(createFirecracker, i * 300);
                 }
-                setTimeout(() => {
-                    fireworksElement.style.display = 'none';
-                    fireworksElement.innerHTML = '';
-                }, 3000);
+                setTimeout(() => { fireworksElement.style.display = 'none'; fireworksElement.innerHTML = ''; }, 3000);
             }
             
             function createFirecracker() {
                 const x = Math.random() * window.innerWidth;
                 const height = window.innerHeight * 0.3 + Math.random() * window.innerHeight * 0.4;
-                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
                 const firecracker = document.createElement('div');
                 firecracker.className = 'firecracker';
                 firecracker.style.left = `${x}px`;
-                firecracker.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                firecracker.style.backgroundColor = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'][Math.floor(Math.random() * 6)];
                 firecracker.style.setProperty('--height', `-${height}px`);
                 fireworksElement.appendChild(firecracker);
                 setTimeout(() => { createExplosion(x, window.innerHeight - height); firecrackerSound.currentTime = 0; firecrackerSound.play(); }, 1000);
@@ -659,13 +602,12 @@
             }
             
             function createExplosion(x, y) {
-                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
                 for (let i = 0; i < 30; i++) {
                     const explosion = document.createElement('div');
                     explosion.className = 'explosion';
                     explosion.style.left = `${x}px`;
                     explosion.style.top = `${y}px`;
-                    explosion.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    explosion.style.backgroundColor = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'][Math.floor(Math.random() * 6)];
                     const angle = Math.random() * Math.PI * 2;
                     const velocity = 50 + Math.random() * 100;
                     explosion.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
@@ -676,18 +618,15 @@
             }
             
             function showTryAgainMessage() {
-                const nepaliNumbers = ['०', '१', '२', '३'];
                 popupTitle.textContent = 'Try Again!';
-                popupMessage.textContent = `Chances Left: ${gameState.chancesLeft} | अवसर बाँकी: ${nepaliNumbers[gameState.chancesLeft]}`;
-                overlay.style.display = 'block';
-                messagePopup.style.display = 'block';
+                popupMessage.textContent = `Chances Left: ${gameState.chancesLeft} | अवसर बाँकी: ${['०', '१', '२', '३'][gameState.chancesLeft]}`;
+                overlay.style.display = 'block'; messagePopup.style.display = 'block';
             }
             
             function showWinMessage() {
                 popupTitle.textContent = 'Congratulations!';
                 popupMessage.innerHTML = `<div class="nepali-text" style="font-size: 22px; margin: 10px 0;">बधाई छ, तपाईंले रु ५००० पाउनुभयो!</div><p>You've won Rs 5000! Follow the steps below to claim your prize.</p>`;
-                overlay.style.display = 'block';
-                messagePopup.style.display = 'block';
+                overlay.style.display = 'block'; messagePopup.style.display = 'block';
             }
             
             function showStepsPopup() {
@@ -696,15 +635,13 @@
                 if (gameState.progress >= 100) {
                     document.querySelectorAll('.share-button').forEach(button => button.disabled = true);
                 }
-                overlay.style.display = 'block';
-                stepsPopup.style.display = 'block';
+                overlay.style.display = 'block'; stepsPopup.style.display = 'block';
             }
 
             function showFinalMessage() {
                 popupTitle.textContent = 'Verification Complete!';
                 popupMessage.innerHTML = `<p>Thank you for sharing! Your prize is being processed. You will be contacted shortly.</p>`;
-                overlay.style.display = 'block';
-                messagePopup.style.display = 'block';
+                overlay.style.display = 'block'; messagePopup.style.display = 'block';
                 document.querySelectorAll('.share-button').forEach(button => button.disabled = true);
             }
 
@@ -727,54 +664,35 @@
                     setTimeout(() => { toast.style.display = 'none'; }, 3000);
                     return;
                 }
-
                 const shareData = {
                     title: 'दशैं अफर - FireClashArena',
                     text: "I'm playing this amazing Dashain & Tihar game! Check it out and win Rs 5000!",
                     url: window.location.href
                 };
-
                 const showToast = (message) => {
                     toast.textContent = message;
                     toast.style.display = 'block';
                     setTimeout(() => { toast.style.display = 'none'; }, 3500);
                 };
-
                 if (navigator.share) {
                     try {
                         await navigator.share(shareData);
                         showToast('Shared successfully! Progress updated.');
                         incrementProgress();
-                    } catch (err) {
-                        showToast('Sharing was cancelled.');
-                    }
+                    } catch (err) { showToast('Sharing was cancelled.'); }
                     return;
                 }
-
                 try {
                     await navigator.clipboard.writeText(shareData.text + ' ' + shareData.url);
                     showToast(`Link copied! Now opening ${platform}...`);
                     incrementProgress();
-
-                    if (platform === 'Messenger') {
-                        window.open('fb-messenger://', '_blank');
-                    } else if (platform === 'Instagram') {
-                        window.open('instagram://', '_blank');
-                    }
-                } catch (err) {
-                    showToast('Could not copy link. Please try again.');
-                }
+                    if (platform === 'Messenger') { window.open('fb-messenger://', '_blank'); } 
+                    else if (platform === 'Instagram') { window.open('instagram://', '_blank'); }
+                } catch (err) { showToast('Could not copy link. Please try again.'); }
             }
 
-            popupButton.addEventListener('click', () => {
-                overlay.style.display = 'none';
-                messagePopup.style.display = 'none';
-            });
-            
-            closeStepsButton.addEventListener('click', () => {
-                overlay.style.display = 'none';
-                stepsPopup.style.display = 'none';
-            });
+            popupButton.addEventListener('click', () => { overlay.style.display = 'none'; messagePopup.style.display = 'none'; });
+            closeStepsButton.addEventListener('click', () => { overlay.style.display = 'none'; stepsPopup.style.display = 'none'; });
             
             document.getElementById('shareMessengerFriends').addEventListener('click', () => shareLink('Messenger'));
             document.getElementById('shareMessengerGroups').addEventListener('click', () => shareLink('Messenger'));
