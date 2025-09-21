@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>दशैं अफर - FireClashArena</title>
+    
+    <!-- =================================================================== -->
+    <!-- == ADD THESE META TAGS FOR SOCIAL SHARING == -->
+    <!-- =================================================================== -->
+    <!-- IMPORTANT: Replace the placeholder URLs below with your actual website URL -->
+
+    <meta property="og:title" content="दशैं अफर - FireClashArena | Win Rs 5000!" />
+    <meta property="og:description" content="Play the Dashain & Tihar Celebration game and get a chance to win Rs 5000! Click the link to try your luck." />
+    <meta property="og:image" content="https://www.your-live-website.com/money.png" /> 
+    <meta property="og:url" content="https://www.your-live-website.com/index.html" />
+    <meta property="og:type" content="website" />
+
+    <!-- =================================================================== -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* All your CSS remains the same... */
         * {
             margin: 0;
             padding: 0;
@@ -458,6 +473,7 @@
     </style>
 </head>
 <body>
+    <!-- The rest of your HTML body remains the same -->
     <div class="header">
         <div class="header-content">
             <img src="logo.png" alt="FireClashArena Logo" class="logo">
@@ -519,6 +535,7 @@
     </div>
 
     <script>
+        // The JavaScript remains the same as the previous version
         document.addEventListener('DOMContentLoaded', () => {
             const gameContainer = document.getElementById('gameContainer');
             const chancesElement = document.getElementById('chances');
@@ -659,6 +676,7 @@
             }
             
             function showTryAgainMessage() {
+                const nepaliNumbers = ['०', '१', '२', '३'];
                 popupTitle.textContent = 'Try Again!';
                 popupMessage.textContent = `Chances Left: ${gameState.chancesLeft} | अवसर बाँकी: ${nepaliNumbers[gameState.chancesLeft]}`;
                 overlay.style.display = 'block';
@@ -702,7 +720,6 @@
                 }
             }
 
-            // --- REVISED SHARE FUNCTIONALITY WITH REDIRECTION ---
             async function shareLink(platform) {
                  if (gameState.progress >= 100) {
                     toast.textContent = 'You have already completed the steps!';
@@ -723,7 +740,6 @@
                     setTimeout(() => { toast.style.display = 'none'; }, 3500);
                 };
 
-                // Try modern Web Share API first (best for mobile)
                 if (navigator.share) {
                     try {
                         await navigator.share(shareData);
@@ -732,30 +748,24 @@
                     } catch (err) {
                         showToast('Sharing was cancelled.');
                     }
-                    return; // Stop here if Web Share API was used
+                    return;
                 }
 
-                // Fallback for desktop or unsupported browsers
                 try {
-                    // 1. Copy link to clipboard
                     await navigator.clipboard.writeText(shareData.text + ' ' + shareData.url);
                     showToast(`Link copied! Now opening ${platform}...`);
                     incrementProgress();
 
-                    // 2. Attempt to open the app
                     if (platform === 'Messenger') {
                         window.open('fb-messenger://', '_blank');
-                        setTimeout(() => { window.open('https://www.messenger.com/', '_blank'); }, 1000);
                     } else if (platform === 'Instagram') {
                         window.open('instagram://', '_blank');
-                        setTimeout(() => { window.open('https://www.instagram.com/', '_blank'); }, 1000);
                     }
                 } catch (err) {
                     showToast('Could not copy link. Please try again.');
                 }
             }
 
-            // --- EVENT LISTENERS ---
             popupButton.addEventListener('click', () => {
                 overlay.style.display = 'none';
                 messagePopup.style.display = 'none';
